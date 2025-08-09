@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ergodicfbm"
+version = "0.1.0"
+description = "Ergodic fBm SDE simulation and density tools"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [{ name = "El Mehdi Haress" }]
+
+dependencies = [
+  "numpy>=1.22",
+  "scipy>=1.10",
+  "scikit-learn>=1.0",
+  "matplotlib>=3.5",
+  "tqdm>=4.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/ElMehdiHaress/ergodicfBm"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+ergodicfbm = []
