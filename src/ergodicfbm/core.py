@@ -71,8 +71,10 @@ def compute_increments(path):
 
 #Core simulation function
 #theta= lam, p, q
+
 def drift1(theta):
     return lambda x: (theta[0])*x*((np.abs(x)+1e-8)**(theta[1]))
+
 def drift2(theta):
     return lambda x: - x*(np.abs(x)**theta[2])
 
@@ -260,11 +262,11 @@ def compute_objective(theta, H, sigma, T, N, lam, p, q, X0, MC):
 
 #Optimisation
 
-def simulator(param,n_samples=1000):
+def simulator(param,T,n_samples=10000):
     _,X,_ = simulate_sde_fbm(np.array([param[0],param[1],param[2]]), sigmoid(param[4])/2, 1, T, n_samples, param[3], MC=1)
     return X
 
-def wp_1d(param, simulator, target_samples, n_samples=1000, p=1):
+def wp_1d(param, T, simulator, target_samples, n_samples=1000, p=1):
     """
     Compute the empirical 1D Wasserstein-p distance between:
       • samples = simulator(theta, n_samples)
@@ -275,7 +277,7 @@ def wp_1d(param, simulator, target_samples, n_samples=1000, p=1):
     theta : any
         Parameter passed to your simulator.
     simulator : callable
-        simulator(theta, n_samples) -> array_like of shape (n_samples,)
+        simulator(theta,T, n_samples) -> array_like of shape (n_samples,)
     target_samples : array_like
         Samples from your target distribution (length >= n_samples).
     n_samples : int, optional (default=1000)
